@@ -9,3 +9,4 @@ werkzeug==3.0.4
 python-dotenv==1.0.1
 validators==0.33.0
 pytest==8.3.3
+Flask-Bcrypt==1.0.1
