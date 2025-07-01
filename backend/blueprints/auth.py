@@ -1,7 +1,6 @@
 from flask import Blueprint, request, make_response
 from flask_restful import Api, Resource
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt, get_jwt_identity
-from flask_limiter.util import get_remote_address
 from models import db, User, TokenBlocklist
 import validators
 
@@ -9,7 +8,6 @@ auth_bp = Blueprint('auth', __name__)
 auth_api = Api(auth_bp)
 
 class RegisterUser(Resource):
-    @auth_bp.limiter.limit("5 per minute", key_func=get_remote_address)
     def post(self):
         data = request.get_json()
         username = data.get('username')
@@ -48,7 +46,6 @@ class RegisterUser(Resource):
         }, 201)
 
 class LoginUser(Resource):
-    @auth_bp.limiter.limit("5 per minute", key_func=get_remote_address)
     def post(self):
         data = request.get_json()
         username = data.get('username')
